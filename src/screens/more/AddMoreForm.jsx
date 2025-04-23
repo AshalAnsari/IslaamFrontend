@@ -83,8 +83,9 @@ const AddMoreForm = () => {
 
     const { juzNo, surahId, ayatNumber, ayatArabic } = formData;
 
-    if (!juzNo || !surahId || !ayatNumber || !ayatArabic) {
+    if (!juzNo || !surahId || ayatNumber < 0 || !ayatArabic) {
       alert('Please fill all required fields.');
+      setIsSubmitting(false);
       return;
     }
 
@@ -98,12 +99,14 @@ const AddMoreForm = () => {
       stories,
     };
 
+    // console.log(fullFormData)
+
     const apiResponse = await postApi(fullFormData, POST_AYAT_API_ROUTE);
     
     
     if(apiResponse.success){
       alert(apiResponse.data.Message)
-      console.log("Post ayat api response: ", apiResponse.data.Data)
+      // console.log("Post ayat api response: ", apiResponse.data.Data)
     }
     else{
       alert("Something went wrong")

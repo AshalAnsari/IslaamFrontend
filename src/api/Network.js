@@ -15,10 +15,10 @@ export const postApi = async (data, route) => {
 
         if(response.ok){
             const jsonResponse = await response.json()
-            console.log("Json post Response: ", jsonResponse)
+            // console.log("Json post Response: ", jsonResponse)
             return {success: true, data: jsonResponse}
         }
-        console.log("response: ", response)
+        console.log("response: ", response.Success)
         return {success: false, error: "Something went wront in post method"}
     }catch(err){
         console.log(err)
@@ -33,7 +33,7 @@ export const getApi = async (id, route) => {
 
         if(response.ok){
             const jsonResponse = await response.json()
-            console.log("Json get Response: ", jsonResponse)
+            // console.log("Json get Response: ", jsonResponse)
             return {success: true, data: jsonResponse}
         }
         return {success: false, error: "Something went wront in get method"}
@@ -57,7 +57,7 @@ export const putApi = async (route, payload) => {
             return {success: true, data:jsonResponse.Data}
         }
         const jsonRes = await response.json()
-        console.log("Json: ", jsonRes)
+        // console.log("Json: ", jsonRes)
         return {success: false, error: "Something went wrong with put method", }
     }catch(err){
         console.log(err)
@@ -86,7 +86,7 @@ export const deleteApi = async (route, juzNo, surahId, ayatNo) => {
 }
 
 export const fetchAyatData = async (juzNo, surahId, ayatNo, route) => {
-    console.log(`${BASE_URL}${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`)
+    // console.log(`${BASE_URL}${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`)
     try {
       const response = await fetch(
         `${BASE_URL}${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`
