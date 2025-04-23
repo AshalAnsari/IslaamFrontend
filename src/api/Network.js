@@ -1,4 +1,5 @@
-const BASE_URL = import.meta.env.VITE_BASE_URL
+// const BASE_URL = import.meta.env.VITE_BASE_URL
+const BASE_URL = "https://1d6d-111-68-111-216.ngrok-free.app/"
 
 
 export const postApi = async (data, route) => {
