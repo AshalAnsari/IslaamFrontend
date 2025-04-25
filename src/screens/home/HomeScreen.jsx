@@ -12,13 +12,10 @@ const HomeScreen = () => {
         Islaam 24/7
       </h1>
 
-      <div className='absolute right-10 top-10 w-[150px] px-5'>
-        <Button label={"Check Quran"} onClick={() => navigation("/check_quran")}/>
-      </div>
-
       {/* Buttons */}
       <div className="flex flex-col gap-4 w-full max-w-xs">
-        <Button label={"Hadees"} onClick={()=> console.log("hello1")}/>
+        <Button label={"Check Quran"} onClick={() => navigation("/check_quran")}/>
+        <Button label={"Hadees"} onClick={()=> navigation("/hadees")}/>
         <Button label={"Quotes"} onClick={()=> console.log("hello2")}/>
       </div>
     </div>

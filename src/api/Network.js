@@ -1,5 +1,6 @@
 // const BASE_URL = import.meta.env.VITE_BASE_URL
-const BASE_URL = "https://1d6d-111-68-111-216.ngrok-free.app/"
+// const BASE_URL = "https://1d6d-111-68-111-216.ngrok-free.app/"
+const BASE_URL = "http://localhost:8000/"
 
 
 export const postApi = async (data, route) => {
@@ -15,11 +16,9 @@ export const postApi = async (data, route) => {
 
         if(response.ok){
             const jsonResponse = await response.json()
-            // console.log("Json post Response: ", jsonResponse)
             return {success: true, data: jsonResponse}
         }
-        console.log("response: ", response.Success)
-        return {success: false, error: "Something went wront in post method"}
+        return {success: false, error: response.message}
     }catch(err){
         console.log(err)
         return {success: false, error: err}
@@ -33,7 +32,6 @@ export const getApi = async (id, route) => {
 
         if(response.ok){
             const jsonResponse = await response.json()
-            // console.log("Json get Response: ", jsonResponse)
             return {success: true, data: jsonResponse}
         }
         return {success: false, error: "Something went wront in get method"}
@@ -56,8 +54,6 @@ export const putApi = async (route, payload) => {
             const jsonResponse = await response.json()
             return {success: true, data:jsonResponse.Data}
         }
-        const jsonRes = await response.json()
-        // console.log("Json: ", jsonRes)
         return {success: false, error: "Something went wrong with put method", }
     }catch(err){
         console.log(err)
@@ -65,12 +61,12 @@ export const putApi = async (route, payload) => {
     }
 }
 
-export const deleteApi = async (route, juzNo, surahId, ayatNo) => {
+export const deleteApi = async (route, data) => {
     try{
         const requestOptions = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({"juzNo":juzNo, "surahId":surahId, "ayatNo":ayatNo})
+            body: JSON.stringify(data)
         };
 
         const response = await fetch(`${BASE_URL}${route}`, requestOptions)
@@ -86,7 +82,6 @@ export const deleteApi = async (route, juzNo, surahId, ayatNo) => {
 }
 
 export const fetchAyatData = async (juzNo, surahId, ayatNo, route) => {
-    // console.log(`${BASE_URL}${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`)
     try {
       const response = await fetch(
         `${BASE_URL}${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`
@@ -95,7 +90,6 @@ export const fetchAyatData = async (juzNo, surahId, ayatNo, route) => {
       const result = await response.json();
   
       if (!response.ok) {
-        console.error("Server error:", result);
         return { success: false, error: result.Error || result.Message };
       }
 
