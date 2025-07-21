@@ -1,11 +1,13 @@
-// const BASE_URL = import.meta.env.VITE_BASE_URL
-// const BASE_URL = "https://1d6d-111-68-111-216.ngrok-free.app/"
-const BASE_URL = "http://localhost:8000/"
+const getBaseURL = ()=>{
+    const pref = localStorage.getItem("api_url")
+    return pref || "";
+}
+
 
 
 export const postApi = async (data, route) => {
     try{
-        const response = await fetch(`${BASE_URL}${route}`, {
+        const response = await fetch(`${getBaseURL()}/${route}`, {
             method: 'POST',
             headers: {
               Accept: 'application.json',
@@ -27,8 +29,8 @@ export const postApi = async (data, route) => {
 
 export const getApi = async (id, route) => {
     try{
-        console.log(`${BASE_URL}${route}/${id}`)
-        const response = await fetch(`${BASE_URL}${route}/${id}`)
+        // console.log(`${getBaseURL()}/${route}/${id}`)
+        const response = await fetch(`${getBaseURL()}/${route}/${id}`)
 
         if(response.ok){
             const jsonResponse = await response.json()
@@ -49,7 +51,7 @@ export const putApi = async (route, payload) => {
             body: JSON.stringify(payload)
         };
 
-        const response = await fetch(`${BASE_URL}${route}`, requestOptions)
+        const response = await fetch(`${getBaseURL()}/${route}`, requestOptions)
         if(response.ok){
             const jsonResponse = await response.json()
             return {success: true, data:jsonResponse.Data}
@@ -69,7 +71,7 @@ export const deleteApi = async (route, data) => {
             body: JSON.stringify(data)
         };
 
-        const response = await fetch(`${BASE_URL}${route}`, requestOptions)
+        const response = await fetch(`${getBaseURL()}/${route}`, requestOptions)
         if(response.ok){
             const jsonResponse = await response.json()
             return {success: true, data:jsonResponse.Data}
@@ -84,7 +86,7 @@ export const deleteApi = async (route, data) => {
 export const fetchAyatData = async (juzNo, surahId, ayatNo, route) => {
     try {
       const response = await fetch(
-        `${BASE_URL}${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`
+        `${getBaseURL()}/${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`
       );
   
       const result = await response.json();

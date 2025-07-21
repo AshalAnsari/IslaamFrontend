@@ -71,7 +71,7 @@ const CheckHadees = () => {
 
     const apiResponse = await putApi(PUT_API_ROUTE, obj)
     if(apiResponse.success){
-      alert(apiResponse.data?.message || "Hadees updated successfully")
+      alert(apiResponse.data?.Message || "Hadees updated successfully")
       return
     }
     alert(apiResponse.error || "Something went wrong. Try again later!")
@@ -86,7 +86,8 @@ const CheckHadees = () => {
     }
 
     const lastEntry = updatedData[targetRowIndex][field].at(-1);
-    const isLastValid = !lastEntry || (lastEntry.text && lastEntry.translatedBy);
+    const isLastValid = !lastEntry || (lastEntry.text && lastEntry.referencedBy && lastEntry.language);
+
 
     if (isLastValid) {
       updatedData[targetRowIndex][field].push({ text: '', referencedBy: '' });
@@ -228,13 +229,13 @@ const CheckHadees = () => {
                                     <div key={i} className="flex flex-col w-[200px] mt-5 mb-5 relative border p-2 rounded-md bg-gray-50">
                                         <input
                                         type="text"
-                                        value={u.text || u.url || ''}
+                                        value={u.url || ''}
                                         disabled={editingIndex !== index}
                                         onChange={(e) => {
                                             const updatedData = [...hadeesData];
                                             updatedData[page * rowsPerPage + index][field][i] = {
                                             ...(updatedData[page * rowsPerPage + index][field][i] || {}),
-                                            text: e.target.value
+                                            url: e.target.value
                                             };
                                             setHadeesData(updatedData);
                                         }}
@@ -254,7 +255,9 @@ const CheckHadees = () => {
                                         )}
                                     </div>
                                     ))
-                                ) : (
+                                ) 
+                                : 
+                                (
                                     editingIndex === index && (
                                     <button
                                         className="text-blue-500 text-sm underline"
@@ -267,18 +270,6 @@ const CheckHadees = () => {
                                         <AddIcon /> Add {field}
                                     </button>
                                     )
-                                )}
-                                {editingIndex === index && row[field]?.length === 0 && (
-                                    <button
-                                    className="text-blue-500 text-sm underline"
-                                    onClick={() => {
-                                        const updatedData = [...hadeesData];
-                                        updatedData[page * rowsPerPage + index][field] = [{ text: '' }];
-                                        setHadeesData(updatedData);
-                                    }}
-                                    >
-                                    <AddIcon /> Add {field}
-                                    </button>
                                 )}
                                 </TableCell>
                             );
