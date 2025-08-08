@@ -45,7 +45,7 @@ const AddMoreForm = () => {
       }
     }
     else{
-        console.log("Error: ", apiResponse.error)
+        alert(apiResponse.error)
     }
   }
 
@@ -77,42 +77,50 @@ const AddMoreForm = () => {
   };
   
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     const { juzNo, surahId, ayatNumber, ayatArabic } = formData;
-
+  
     if (!juzNo || !surahId || ayatNumber < 0 || !ayatArabic) {
       alert('Please fill all required fields.');
       setIsSubmitting(false);
       return;
     }
-
+  
+    // ✅ Check if ANY field is filled in any array
+    const isAnyFieldFilled = [languages, mafaheem, tafaseer, stories].some(arr =>
+      arr.some(item => item.language || item.by || item.text)
+    );
+  
+    if (!isAnyFieldFilled) {
+      alert("Please fill at least one field in Translations, Mafaheem, Tafaseer, or Stories.");
+      setIsSubmitting(false);
+      return;
+    }
+  
     const fullFormData = {
       juzNo,
       surahId,
       ayatNo: ayatNumber,
       languages,
       mafaheem,
-      tafseer:tafaseer,
+      tafseer: tafaseer,
       stories,
     };
-
-    // console.log(fullFormData)
-
+  
     const apiResponse = await postApi(fullFormData, POST_AYAT_API_ROUTE);
-    
-    
-    if(apiResponse.success){
-      alert(apiResponse.data.Message)
-      // console.log("Post ayat api response: ", apiResponse.data.Data)
+  
+    if (apiResponse.success) {
+      alert(apiResponse.data.Message);
+    } else {
+      alert(apiResponse.error);
     }
-    else{
-      alert("Something went wrong")
-    }
+  
     setIsSubmitting(false);
   };
+  
 
   const renderArrayFields = (title, state, setter, color) => (
     <div className="mb-6">

@@ -85,20 +85,20 @@ export const deleteApi = async (route, data) => {
 
 export const fetchAyatData = async (juzNo, surahId, ayatNo, route) => {
     try {
-      const response = await fetch(
-        `${getBaseURL()}/${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`
-      );
-  
-      const result = await response.json();
-  
-      if (!response.ok) {
-        return { success: false, error: result.Error || result.Message };
-      }
+        const response = await fetch(
+          `${getBaseURL()}/${route}?juzNo=${encodeURIComponent(juzNo)}&surahId=${encodeURIComponent(surahId)}&ayatNo=${encodeURIComponent(ayatNo)}`
+        );
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            return { success: false, error: result.Error || result.Message };
+        }
 
-      return { success: true, data: result.Data };
+        return { success: true, data: result.Data };
     } catch (err) {
-      console.error("Fetch error:", err);
-      return { success: false, error: err.message };
+        console.error("Fetch error:", err);
+        return { success: false, error: err.message };
     }
   };
   

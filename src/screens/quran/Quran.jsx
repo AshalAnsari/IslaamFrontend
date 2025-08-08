@@ -90,7 +90,7 @@ const Quran = () => {
       alert("Document added successfully")
     }
     else{
-      alert("Something went wrong while adding the Document")
+      alert(apiResponse.error)
     }
     console.log("api res: ", apiResponse)
 

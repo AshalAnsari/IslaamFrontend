@@ -29,7 +29,7 @@ const CheckHadees = () => {
       setHadeesData(apiResponse.data.Data);
       setPage(0);
     } else {
-      console.log("Error fetching data");
+      alert(apiResponse.error || "error fetching data")
     }
   };
 

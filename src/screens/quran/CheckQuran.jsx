@@ -28,6 +28,9 @@ const CheckQuran = () => {
         setOriginalData(apiResponse.data.Data);
         setPage(0);
       }
+      else{
+        alert(apiResponse.error || "Something went wrong with api")
+      }
     } else {
       alert("Please enter a value between 1 and 114");
     }
@@ -85,7 +88,7 @@ const CheckQuran = () => {
     if (apiResponse.success) {
       alert("Saved changes successfully!");
     } else {
-      alert("Error saving changes");
+      alert(apiResponse.error)
     }
   };
 
@@ -138,6 +141,7 @@ const CheckQuran = () => {
                           <input
                             type="text"
                             value={u.text || u.url}
+                            placeholder='Enter URL'
                             disabled={editingIndex !== actualRowIndex}
                             onChange={(e) => {
                               const updatedData = [...surahData];
@@ -148,6 +152,7 @@ const CheckQuran = () => {
                           />
                           <input
                             type="text"
+                            placeholder='Enter Reference By'
                             value={u.translatedBy || u.title || u.by || ''}
                             disabled={editingIndex !== actualRowIndex}
                             onChange={(e) => {

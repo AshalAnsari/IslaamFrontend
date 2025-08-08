@@ -57,7 +57,7 @@ const HadeesScreen = () => {
       // console.log("Document added successfully : ", apiResponse.data?.Data)
     }
     else{
-      alert(apiResponse.error || "Something went wrong")
+      alert(apiResponse.error || "Something went wrong with api")
     }
     
   }
